@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <title>Trouble</title>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-slate-900 text-white">
+    <h1 id="title" class="uppercase text-center my-10 sm:mt-24 select-none">Login</h1>
+    <form id="registration" class="flex flex-col gap-6">
+        <input type="text" autocomplete="off" id="username" placeholder="Username" required class="transition bg-transparent duration-300 p-2 border-b-2 border-solid border-white
+            shadow-lg focus:outline-none mx-auto max-w-full w-96 focus:border-green-400" />
+        <input type="password" autocomplete="off" id="password" placeholder="Password" require class="transition bg-transparent duration-300 p-2 border-b-2 border-solid border-white
+            shadow-lg focus:outline-none mx-auto max-w-full w-96 focus:border-green-400" />
+        <input type="submit" value="Submit" class="text-sm font-medium cursor-pointer py-3 bg-gradient-to-r from-cyan-400 to-teal-300
+            transition duration-300 hover:opacity-70 mx-auto w-96 max-w-full uppercase" />
+    </form>
+    <div id="auth-button"
+        class="select-none uppercase text-white mx-auto w-fit text-xs cursor-pointer transition duration-300 hover:text-cyan-300 py-4">
+        REGISTER
+    </div>
+
+    <script>
+        const form = document.getElementById('registration')
+        const authBtn = document.getElementById('auth-button')
+        const header = document.querySelector('h1')
+        form.addEventListener('submit', login)
+        authBtn.addEventListener('click', changeBtn)
+
+        function changeBtn() {
+            const text = authBtn.innerText
+            if (text === 'LOGIN') {
+                form.removeEventListener('submit', register)
+                form.addEventListener('submit', login)
+                authBtn.innerText = 'register'
+                header.innerText = "LOGIN"
+            } else {
+                form.removeEventListener('submit', login)
+                form.addEventListener('submit', register)
+                authBtn.innerText = 'login'
+                header.innerText = "REGISTER"
+            }
+        }
+
+        async function login(e) {
+            e.preventDefault()
+            console.log('heerere')
+            const username = document.getElementById('username')
+            const password = document.getElementById('password')
+            const res = await fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username.value,
+                    password: password.value
+                })
+            })
+        }
+        async function register(e) {
+            e.preventDefault()
+            console.log('heerere')
+            const username = document.getElementById('username')
+            const password = document.getElementById('password')
+            const res = await fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username.value,
+                    password: password.value
+                })
+            })
+            changeBtn()
+        }
+
+    </script>
+</body>
+
+</html>
